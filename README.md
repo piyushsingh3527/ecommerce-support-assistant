@@ -306,18 +306,18 @@ WebSocket:
 /ws/chat
 ```
 
-```markdown
 Browser chat:
 
 When running locally:
 
 ```text
 http://127.0.0.1:8000/static/chat.html
+```
 
 When running with Docker:
-
+```text
 http://127.0.0.1:8080/static/chat.html
-
+```
 ## RAG Workflow
 
 The chatbot follows this general workflow:
