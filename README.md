@@ -121,11 +121,12 @@ Install the requirements:
 ```powershell
 pip install -r requirements.txt
 ```
-Copy .env.example to .env:
+```markdown
+Copy `.env.example` to `.env`:
 
 ```powershell
 Copy-Item .env.example .env
-```
+
 Copy `.env.example` to `.env` and update the required values.
 
 Never commit `.env` or any secret/API key to GitHub.
@@ -305,11 +306,17 @@ WebSocket:
 /ws/chat
 ```
 
+```markdown
 Browser chat:
 
+When running locally:
+
 ```text
+http://127.0.0.1:8000/static/chat.html
+
+When running with Docker:
+
 http://127.0.0.1:8080/static/chat.html
-```
 
 ## RAG Workflow
 
