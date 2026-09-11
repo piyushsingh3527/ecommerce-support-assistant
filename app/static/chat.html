@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>E-Commerce Support Chat</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        #token {
+            width: 100%;
+        }
+
+        #message {
+            width: 75%;
+        }
+
+        button {
+            padding: 10px 16px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        hr {
+            margin: 25px 0;
+        }
+
+        #chat {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            min-height: 150px;
+        }
+
+        #chat p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>E-Commerce Support Assistant</h1>
+
+    <label for="token">JWT Token:</label>
+    <br>
+
+    <input
+        id="token"
+        type="text"
+        placeholder="Paste your JWT token here"
+    >
+
+    <br><br>
+
+    <button onclick="connectWebSocket()">
+        Connect
+    </button>
+
+    <hr>
+
+    <label for="message">Ask a question:</label>
+    <br>
+
+    <input
+        id="message"
+        type="text"
+        placeholder="Ask a question"
+        onkeydown="handleEnter(event)"
+    >
+
+    <button onclick="sendMessage()">
+        Send
+    </button>
+
+    <div id="chat"></div>
+
+    <script>
+
+        let socket = null;
+
+
+        // Connect to the WebSocket server
+        function connectWebSocket() {
+
+            const token = document.getElementById("token").value.trim();
+
+            if (!token) {
+                alert("Please enter your JWT token.");
+                return;
+            }
+
+
+            // Automatically use the same host and port
+            // as the current browser page.
+            //
+            // Docker:
+            // http://localhost:8080
+            // becomes:
+            // ws://localhost:8080
+            //
+            // Normal Uvicorn:
+            // http://127.0.0.1:8000
+            // becomes:
+            // ws://127.0.0.1:8000
+
+            const wsProtocol =
+                window.location.protocol === "https:"
+                    ? "wss:"
+                    : "ws:";
+
+            const wsUrl =
+                wsProtocol +
+                "//" +
+                window.location.host +
+                "/ws/chat?token=" +
+                encodeURIComponent(token);
+
+
+            socket = new WebSocket(wsUrl);
+
+
+            socket.onopen = function() {
+
+                addMessage(
+                    "System: WebSocket connected successfully."
+                );
+            };
+
+
+            socket.onmessage = function(event) {
+
+                addMessage(
+                    "Assistant: " + event.data
+                );
+            };
+
+
+            socket.onclose = function(event) {
+
+                addMessage(
+                    "System: WebSocket connection closed."
+                );
+            };
+
+
+            socket.onerror = function() {
+
+                addMessage(
+                    "System: WebSocket error."
+                );
+            };
+        }
+
+
+        // Send a question to the chatbot
+        function sendMessage() {
+
+            const input =
+                document.getElementById("message");
+
+            const question =
+                input.value.trim();
+
+
+            if (!socket ||
+                socket.readyState !== WebSocket.OPEN) {
+
+                alert("Please connect first.");
+
+                return;
+            }
+
+
+            if (!question) {
+                return;
+            }
+
+
+            addMessage(
+                "You: " + question
+            );
+
+
+            socket.send(question);
+
+
+            input.value = "";
+        }
+
+
+        // Allow pressing Enter to send a question
+        function handleEnter(event) {
+
+            if (event.key === "Enter") {
+
+                sendMessage();
+            }
+        }
+
+
+        // Display a message in the chat area
+        function addMessage(text) {
+
+            const chat =
+                document.getElementById("chat");
+
+
+            const message =
+                document.createElement("p");
+
+
+            message.textContent = text;
+
+
+            chat.appendChild(message);
+        }
+
+    </script>
+
+</body>
+</html>
