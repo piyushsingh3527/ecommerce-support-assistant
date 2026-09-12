@@ -79,7 +79,7 @@ ecommerce-support-assistant/
 │
 ├── docker/
 │   └── init.sql
-│
+│── docs/
 ├── scripts/
 ├── tests/
 │
@@ -121,11 +121,12 @@ Install the requirements:
 ```powershell
 pip install -r requirements.txt
 ```
-```markdown
+
 Copy `.env.example` to `.env`:
 
 ```powershell
 Copy-Item .env.example .env
+```
 
 Copy `.env.example` to `.env` and update the required values.
 
