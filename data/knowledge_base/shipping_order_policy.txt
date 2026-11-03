@@ -1,0 +1,50 @@
+# SHIPPING AND ORDER POLICY
+
+## 1. Order Processing
+
+All successfully placed orders are processed by the system. Order processing begins after the order is confirmed.
+
+Customers can view their order details through the order management system.
+
+## 2. Order Tracking
+
+Customers can check their order status using their Order ID.
+
+The available order statuses are:
+
+- Pending: The order has been placed and is waiting for confirmation.
+- Confirmed: The order has been accepted.
+- Shipped: The order has been dispatched.
+- Delivered: The order has been successfully delivered.
+
+Customers can contact the support team if they need assistance with their order status.
+
+## 3. Order Cancellation
+
+Customers should contact the support team as soon as possible if they want to cancel an order.
+
+Cancellation requests are subject to the order's current status and the applicable cancellation rules.
+
+## 4. Delivery Information
+
+Delivery time may vary depending on the customer's location and shipping conditions.
+
+Customers should provide a correct shipping address and contact information while placing an order.
+
+## 5. Payment Information
+
+The current application uses a simulated checkout process.
+
+It does not process real payments or connect to an actual payment gateway.
+
+## 6. Damaged or Incorrect Products
+
+Customers who receive a damaged or incorrect product should contact customer support and provide their Order ID along with a description of the issue.
+
+The support team can review the complaint and assist the customer according to the applicable return policy.
+
+## 7. Product Availability
+
+Product availability depends on the stock information maintained in the system.
+
+An order can only be processed when sufficient stock is available.

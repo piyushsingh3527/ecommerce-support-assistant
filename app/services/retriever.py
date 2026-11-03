@@ -9,7 +9,7 @@ def search_similar_chunks(
     db: Session,
     query: str,
     limit: int = 3,
-    max_distance: float = 0.5,
+    max_distance: float = 0.8,
 ):
     query_embedding = create_embedding(query)
 
